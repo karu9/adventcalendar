@@ -22,7 +22,7 @@ public class Part2D6 {
     int lightPower = 0;
     for(int i = 0; i < 1000; i++){
       for (int j = 0; j < 1000; j++){
-          lightPower += lights[i][j];
+        lightPower += lights[i][j];
       }
     }
     return lightPower;
@@ -31,11 +31,11 @@ public class Part2D6 {
   private static void execInstructions(String word, int[][] lights) {
     int action;
     if(word.indexOf("toggle") > -1){
-      action = -1;
+      action = 2;
       word = word.substring(7, word.length());
     }
     else if(word.indexOf("turn off") > -1){
-      action = 0;
+      action = -1;
       word = word.substring(9, word.length());
     }
     else{
@@ -49,15 +49,12 @@ public class Part2D6 {
     for(int i = fromX; i <= toX; i++){
       for(int j = fromY; j <= toY; j++){
         if(action == -1){
-          lights[i][j] = lights[i][j] + 2;
-        }
-        if(action == 1){
-          lights[i][j] = lights[i][j] + 1;
+          if(lights[i][j] > 0){
+            lights[i][j] = lights[i][j] - 1;
+          }
         }
         else{
-            if(lights[i][j] > 0){
-              lights[i][j] = lights[i][j] - 1;
-            }
+          lights[i][j] = lights[i][j] + action;
         }
       }
     }

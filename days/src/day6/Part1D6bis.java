@@ -1,21 +1,20 @@
 package day6;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileReader;
 import java.io.IOException;
 
 public class Part1D6bis {
   public static void main(String[] args) throws IOException {
     int[][] lights = initiateLights();
-    FileInputStream file = new FileInputStream(new File("res/day6/input.txt"));
-    String word = readWord(file);
-    int numberofInstructions = 0;
-    while (word != null && word.length() > 0){
-      execInstructions(word, lights);
-      numberofInstructions ++;
-      word = readWord(file);
+
+    BufferedReader b = new BufferedReader(new FileReader(new File("res/day6/input.txt")));
+    String line = null;
+    while ((line = b.readLine()) != null) {
+      execInstructions(line, lights);
     }
-    System.out.println(numberofInstructions);
     System.out.println(countLitLights(lights));
   }
 

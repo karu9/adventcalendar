@@ -6,7 +6,7 @@ import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
 
-public class Part1D6bis {
+public class Part2D6 {
   public static void main(String[] args) throws IOException {
     int[][] lights = initiateLights();
 
@@ -15,7 +15,17 @@ public class Part1D6bis {
     while ((line = b.readLine()) != null) {
       execInstructions(line, lights);
     }
-    System.out.println(countLitLights(lights));
+    System.out.println(countLightPower(lights));
+  }
+
+  private static int countLightPower(int[][] lights) {
+    int lightPower = 0;
+    for(int i = 0; i < 1000; i++){
+      for (int j = 0; j < 1000; j++){
+          lightPower += lights[i][j];
+      }
+    }
+    return lightPower;
   }
 
   private static void execInstructions(String word, int[][] lights) {
@@ -39,15 +49,15 @@ public class Part1D6bis {
     for(int i = fromX; i <= toX; i++){
       for(int j = fromY; j <= toY; j++){
         if(action == -1){
-          if(lights[i][j] == 0){
-            lights[i][j] = 1;
-          }
-          else{
-            lights[i][j] = 0;
-          }
+          lights[i][j] = lights[i][j] + 2;
+        }
+        if(action == 1){
+          lights[i][j] = lights[i][j] + 1;
         }
         else{
-          lights[i][j] = action;
+            if(lights[i][j] > 0){
+              lights[i][j] = lights[i][j] - 1;
+            }
         }
       }
     }
@@ -61,18 +71,6 @@ public class Part1D6bis {
       }
     }
     return lights;
-  }
-
-  private static int countLitLights(int[][] lights) {
-    int lightCount = 0;
-    for(int i = 0; i < 1000; i++){
-      for (int j = 0; j < 1000; j++){
-        if(lights[i][j] == 1){
-          lightCount++;
-        }
-      }
-    }
-    return lightCount;
   }
 
 }
